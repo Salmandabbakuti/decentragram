@@ -1,29 +1,24 @@
 import {
-  ImageCreated as ImageCreatedEvent,
-  ImageTipped as ImageTippedEvent
-} from "../generated/Decentragram/Decentragram"
-import { ImageCreated, ImageTipped } from "../generated/schema"
+  PostCreated as PostCreatedEvent,
+  TipCreated as TipCreatedEvent
+} from "../generated/Decentragram/Decentragram";
+import { Post, Tip } from "../generated/schema";
 
-export function handleImageCreated(event: ImageCreatedEvent): void {
-  let entity = new ImageCreated(
-    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
-  )
-  entity.id = event.params.id
-  entity.description = event.params.description
-  entity.hash = event.params.hash
-  entity.tipAmount = event.params.tipAmount
-  entity.author = event.params.author
-  entity.save()
+export function handlePostCreated(event: PostCreatedEvent): void {
+  let post = new Post(event.params.id.toString());
+  post.content = event.params.content;
+  post.imageHash = event.params.imageHash;
+  post.earnings = event.params.earnings;
+  post.author = event.params.author;
+  post.createdAt = event.block.timestamp;
+  post.save();
 }
 
-export function handleImageTipped(event: ImageTippedEvent): void {
-  let entity = new ImageTipped(
-    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
-  )
-  entity.id = event.params.id
-  entity.hash = event.params.hash
-  entity.description = event.params.description
-  entity.tipAmount = event.params.tipAmount
-  entity.author = event.params.author
-  entity.save()
+export function handleTipCreated(event: TipCreatedEvent): void {
+  let tip = new Tip(event.params.id.toString());
+  tip.postId = event.params.postId;
+  tip.amount = event.params.amount;
+  tip.sender = event.params.sender;
+  tip.createdAt = event.block.timestamp;
+  tip.save();
 }

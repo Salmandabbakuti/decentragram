@@ -1,17 +1,16 @@
-type ImageCreated @entity {
+type Post @entity {
   id: ID!
-  id: BigInt! # uint256
-  description: String! # string
-  hash: String! # string
-  tipAmount: BigInt! # uint256
+  content: String! # string
+  imageHash: String! # string
+  earnings: BigInt! # uint256
   author: Bytes! # address
+  createdAt: BigInt! # timestamp
 }
 
-type ImageTipped @entity {
+type Tip @entity {
   id: ID!
-  id: BigInt! # uint256
-  hash: String! # string
-  description: String! # string
-  tipAmount: BigInt! # uint256
-  author: Bytes! # address
+  postId: BigInt! # uint256
+  amount: BigInt! # string
+  sender: Bytes! # address
+  createdAt: BigInt! # timestamp
 }

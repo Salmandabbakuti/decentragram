@@ -1,16 +1,21 @@
 {
-  "name": "Decentragram",
-  "license": "UNLICENSED",
+  "name": "decentragram",
+  "license": "MIT",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ salmandabbakuti/Decentragram",
-    "create-local": "graph create --node http://localhost:8020/ salmandabbakuti/Decentragram",
-    "remove-local": "graph remove --node http://localhost:8020/ salmandabbakuti/Decentragram",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 salmandabbakuti/Decentragram"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ salmandabbakuti/decentragram",
+    "create-local": "graph create --node http://localhost:8020/ salmandabbakuti/decentragram",
+    "remove-local": "graph remove --node http://localhost:8020/ salmandabbakuti/decentragram",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 salmandabbakuti/decentragram"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.29.0",
-    "@graphprotocol/graph-ts": "0.26.0"
+    "@graphprotocol/graph-cli": "0.31.0",
+    "@graphprotocol/graph-ts": "0.27.0",
+    "@nomiclabs/hardhat-ethers": "2.0.6",
+    "@nomiclabs/hardhat-etherscan": "^3.1.0",
+    "dotenv": "16.0.1",
+    "ethers": "5.6.9",
+    "hardhat": "2.9.9"
   }
 }
