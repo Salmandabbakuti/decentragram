@@ -4,12 +4,13 @@ type Post @entity {
   imageHash: String! # string
   earnings: BigInt! # uint256
   author: Bytes! # address
+  tips: [Tip!]! @derivedFrom(field: "post")
   createdAt: BigInt! # timestamp
 }
 
 type Tip @entity {
   id: ID!
-  postId: BigInt! # uint256
+  post: Post!
   amount: BigInt! # string
   sender: Bytes! # address
   createdAt: BigInt! # timestamp

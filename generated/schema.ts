@@ -84,6 +84,15 @@ export class Post extends Entity {
     this.set("author", Value.fromBytes(value));
   }
 
+  get tips(): Array<string> {
+    let value = this.get("tips");
+    return value!.toStringArray();
+  }
+
+  set tips(value: Array<string>) {
+    this.set("tips", Value.fromStringArray(value));
+  }
+
   get createdAt(): BigInt {
     let value = this.get("createdAt");
     return value!.toBigInt();
@@ -99,7 +108,7 @@ export class Tip extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
-    this.set("postId", Value.fromBigInt(BigInt.zero()));
+    this.set("post", Value.fromString(""));
     this.set("amount", Value.fromBigInt(BigInt.zero()));
     this.set("sender", Value.fromBytes(Bytes.empty()));
     this.set("createdAt", Value.fromBigInt(BigInt.zero()));
@@ -130,13 +139,13 @@ export class Tip extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get postId(): BigInt {
-    let value = this.get("postId");
-    return value!.toBigInt();
+  get post(): string {
+    let value = this.get("post");
+    return value!.toString();
   }
 
-  set postId(value: BigInt) {
-    this.set("postId", Value.fromBigInt(value));
+  set post(value: string) {
+    this.set("post", Value.fromString(value));
   }
 
   get amount(): BigInt {

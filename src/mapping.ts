@@ -16,7 +16,12 @@ export function handlePostCreated(event: PostCreatedEvent): void {
 
 export function handleTipCreated(event: TipCreatedEvent): void {
   let tip = new Tip(event.params.id.toString());
-  tip.postId = event.params.postId;
+  let post = Post.load(event.params.postId.toString());
+  if (post) {
+    post.earnings = post.earnings.plus(event.params.amount);
+    post.save();
+  }
+  tip.post = event.params.postId.toString();
   tip.amount = event.params.amount;
   tip.sender = event.params.sender;
   tip.createdAt = event.block.timestamp;
