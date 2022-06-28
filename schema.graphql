@@ -1,0 +1,17 @@
+type ImageCreated @entity {
+  id: ID!
+  id: BigInt! # uint256
+  description: String! # string
+  hash: String! # string
+  tipAmount: BigInt! # uint256
+  author: Bytes! # address
+}
+
+type ImageTipped @entity {
+  id: ID!
+  id: BigInt! # uint256
+  hash: String! # string
+  description: String! # string
+  tipAmount: BigInt! # uint256
+  author: Bytes! # address
+}

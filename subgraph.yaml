@@ -1,0 +1,26 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Decentragram
+    network: mumbai
+    source:
+      address: "0xaE61560Ba3A62B7bbC313EF8eAECa28e717ff443"
+      abi: Decentragram
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ImageCreated
+        - ImageTipped
+      abis:
+        - name: Decentragram
+          file: ./abis/Decentragram.json
+      eventHandlers:
+        - event: ImageCreated(uint256,string,string,uint256,address)
+          handler: handleImageCreated
+        - event: ImageTipped(uint256,string,string,uint256,address)
+          handler: handleImageTipped
+      file: ./src/mapping.ts
