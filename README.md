@@ -25,13 +25,14 @@ POLYGON_SCAN_API_KEY=
 8. Authorize graph cli for deployment using token
 9. Deploy subgraph
 
-10. Compile and deploy contract
+1. Compile and deploy contract
 
 ```shell
 yarn install
 npx hardhat compile
 npx hardhat deploy --network polygonMumbai
-npx hardhat verify --network polygonMumbai <Deployed contract address> "<constructor1>" "<constructor2>" # verify contract
+# verify contract
+npx hardhat verify --network polygonMumbai <Deployed contract address> "<constructor1>" "<constructor2>"
 ```
 
 2. Create and Deploy subgraph
@@ -41,5 +42,4 @@ yarn codegen
 yarn build
 graph auth https://api.thegraph.com/deploy/ <Your account's access token not subgraph's token>
 yarn deploy
-
 ```
