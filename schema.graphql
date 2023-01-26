@@ -16,12 +16,12 @@ type Tip @entity {
   createdAt: BigInt! # timestamp
 }
 
-type PushNotificationCounter @entity {
+type EpnsNotificationCounter @entity {
   id: ID!
   totalCount: BigInt!
 }
 
-type PushNotification @entity {
+type EpnsPushNotification @entity {
   id: ID!
   notificationNumber: BigInt!
   recipient: String!

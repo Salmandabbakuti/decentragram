@@ -3,7 +3,7 @@ import {
   TipCreated as TipCreatedEvent
 } from "../generated/Decentragram/Decentragram";
 import { Post, Tip } from "../generated/schema";
-import { sendPushNotification } from "./pushNotification";
+import { sendEPNSNotification } from "./epnsNotification";
 
 export const subgraphID = "salmandabbakuti/decentragram";
 
@@ -31,7 +31,7 @@ export function handlePostCreated(event: PostCreatedEvent): void {
   let notification = `{\"type\": \"${type}\", \"title\": \"${title}\", \"body\": \"${body}\", \"subject\": \"${subject}\", \"message\": \"${message}\", \"image\": \"${image}\", \"secret\": \"${secret}\", \"cta\": \"${cta}\"}`;
 
   // Send push notification. it gets stored first and then polled by the push notification service
-  sendPushNotification(recipient, notification);
+  sendEPNSNotification(recipient, notification);
 }
 
 export function handleTipCreated(event: TipCreatedEvent): void {
