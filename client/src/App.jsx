@@ -36,7 +36,7 @@ import "./styles.css";
 const { Header, Footer, Sider, Content } = Layout;
 dayjs.extend(relativeTime);
 
-const DECENTRAGRAM_CHANNEL_ADDRESS = "0xc2009D705d37A9341d6cD21439CF6B4780eaF2d7"; // DECENTRAGRAM V3 channel address
+const DECENTRAGRAM_CHANNEL_ADDRESS = "0xc2009D705d37A9341d6cD21439CF6B4780eaF2d7"; // Decentragram channel address
 
 const client = new GraphQLClient(
   "https://api.thegraph.com/subgraphs/name/salmandabbakuti/decentragram",
