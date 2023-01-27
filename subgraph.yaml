@@ -19,7 +19,6 @@ dataSources:
       entities:
         - Post
         - Tip
-        - EpnsPushNotification
       abis:
         - name: Decentragram
           file: ./abis/Decentragram.json

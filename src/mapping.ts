@@ -18,12 +18,12 @@ export function handlePostCreated(event: PostCreatedEvent): void {
 
   // Prepare push notification
   // TODO: change to recipient address to channel address if type is 1
-  let recipient = "0x7348943C8d263ea253c0541656c36b88becD77B9",
+  let recipient = "0xc2009D705d37A9341d6cD21439CF6B4780eaF2d7",
     type = "1",
-    title = "New Post",
+    title = "New Post on Decentragram",
     body = event.params.content,
-    subject = "New Post",
-    message = `A new post from ${event.params.author.toHexString()}`,
+    subject = "New Post on Decentragram",
+    message = `A new post from ${event.params.author.toHexString()} on Decentragram`,
     image = `https://ipfs.io/ipfs/${event.params.imageHash}`,
     secret = "null",
     cta = "https://play.google.com/store/apps/details?id=com.decentragram";
