@@ -4,10 +4,10 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ salmandabbakuti/decentragram",
-    "create-local": "graph create --node http://localhost:8020/ salmandabbakuti/decentragram",
-    "remove-local": "graph remove --node http://localhost:8020/ salmandabbakuti/decentragram",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 salmandabbakuti/decentragram"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ salmandabbakuti/decentragram-push-goerli",
+    "create-local": "graph create --node http://localhost:8020/ salmandabbakuti/decentragram-push-goerli",
+    "remove-local": "graph remove --node http://localhost:8020/ salmandabbakuti/decentragram-push-goerli",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 salmandabbakuti/decentragram-push-goerli"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.31.0",

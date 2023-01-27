@@ -7,11 +7,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: Decentragram
-    network: mumbai
+    network: goerli
     source:
       abi: Decentragram
-      address: "0x0002A073F11fA2af8298DCAA10355a73Ca55532E"
-      startBlock: 26944796
+      address: "0xB5bA319C406B7AB96143C7cF71236A1CA97C6328"
+      startBlock: 8386579
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

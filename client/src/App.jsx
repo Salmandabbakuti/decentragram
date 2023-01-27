@@ -37,10 +37,10 @@ const { Header, Footer, Sider, Content } = Layout;
 dayjs.extend(relativeTime);
 
 const DECENTRAGRAM_CHANNEL_ADDRESS =
-  "0xc2009D705d37A9341d6cD21439CF6B4780eaF2d7"; // Decentragram channel address
+  "0xb5ba319c406b7ab96143c7cf71236a1ca97c6328"; // Decentragram channel address
 
 const client = new GraphQLClient(
-  "https://api.thegraph.com/subgraphs/name/salmandabbakuti/decentragram",
+  "https://api.thegraph.com/subgraphs/name/salmandabbakuti/decentragram-push-goerli",
   { headers: {} }
 );
 
