@@ -2,8 +2,8 @@ import * as PushAPI from "@pushprotocol/restapi";
 import { createSocketConnection, EVENTS } from "@pushprotocol/socket";
 import { NotificationItem, Chat } from "@pushprotocol/uiweb";
 import { GraphQLClient, gql } from "graphql-request";
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import {
   Tabs,
   notification,
@@ -36,7 +36,8 @@ import "./styles.css";
 const { Header, Footer, Sider, Content } = Layout;
 dayjs.extend(relativeTime);
 
-const DECENTRAGRAM_CHANNEL_ADDRESS = "0xc2009D705d37A9341d6cD21439CF6B4780eaF2d7"; // Decentragram channel address
+const DECENTRAGRAM_CHANNEL_ADDRESS =
+  "0xc2009D705d37A9341d6cD21439CF6B4780eaF2d7"; // Decentragram channel address
 
 const client = new GraphQLClient(
   "https://api.thegraph.com/subgraphs/name/salmandabbakuti/decentragram",
@@ -79,8 +80,7 @@ export default function App() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [contract, setContract] = useState(null);
-  const [postInput, setPostInput] = useState({ content: '', image: null });
-
+  const [postInput, setPostInput] = useState({ content: "", image: null });
 
   // const timestamp = 1674723570;
   // const date = new Date(timestamp * 1000);
@@ -238,24 +238,19 @@ export default function App() {
   };
 
   const optInToChannel = async () => {
-    const subscriptions = await PushAPI.user.getSubscriptions({
-      user: 'eip155:42:0xD8634C39BBFd4033c0d3289C4515275102423681', // user address in CAIP
-      env: 'staging'
-    });
-    console.log('subscriptions', subscriptions);
     await PushAPI.channels.subscribe({
-      env: 'staging',
+      env: "staging",
       signer: provider.getSigner(),
       channelAddress: `eip155:${chainId}:${DECENTRAGRAM_CHANNEL_ADDRESS}`, // channel address in CAIP
       userAddress: `eip155:${chainId}:${account}`, // user address in CAIP
       onSuccess: () => {
-        console.log('opt in success');
-        message.success('Opted-in to channel to receive notifications');
+        console.log("opt-in success");
+        message.success("Opted-in to channel to receive notifications");
       },
-      onError: () => {
-        console.error('opt in error');
-        message.error('Failed to opt-in to channel');
-      },
+      onError: (err) => {
+        console.error("opt-in error", err);
+        message.error("Failed to opt-in to channel");
+      }
     });
   };
 
@@ -437,7 +432,18 @@ export default function App() {
           <Header className="site-layout-background" style={{ padding: 0 }}>
             <h1 style={{ textAlign: "center", color: "white" }}>
               Decentragram
+              <BellOutlined
+                style={{
+                  float: "right",
+                  marginTop: "19px",
+                  marginRight: "12px",
+                  fontSize: "23px",
+                  color: "white"
+                }}
+                onClick={() => setDrawerVisible(!drawerVisible)}
+              />
             </h1>
+            {/* add notification bell icon here */}
           </Header>
           <Content
             className="site-layout-background"
@@ -454,7 +460,9 @@ export default function App() {
                     <Input.TextArea
                       placeholder="What's happening?"
                       value={postInput?.content || ""}
-                      onChange={(e) => setPostInput({ ...postInput, content: e.target.value })}
+                      onChange={(e) =>
+                        setPostInput({ ...postInput, content: e.target.value })
+                      }
                       autoSize={{ minRows: 3, maxRows: 5 }}
                       style={{
                         borderRadius: 10,
@@ -469,20 +477,36 @@ export default function App() {
                       showUploadList
                       listType="picture"
                       previewFile={postInput?.image}
-                      onRemove={() => setPostInput({ ...postInput, image: null })}
+                      onRemove={() =>
+                        setPostInput({ ...postInput, image: null })
+                      }
                       progress="percent"
                       fileList={postInput?.image ? [postInput.image] : []}
-                      customRequest={({ file }) => setPostInput({ ...postInput, image: file })}
+                      customRequest={({ file }) =>
+                        setPostInput({ ...postInput, image: file })
+                      }
                       multiple={false}
                     >
                       <Button icon={<PictureOutlined />} />
                     </Upload>
-                    <Button type="primary" style={{ marginTop: 10 }} onClick={createPost}>Post</Button>
+                    <Button
+                      type="primary"
+                      style={{ marginTop: 10 }}
+                      onClick={createPost}
+                    >
+                      Post
+                    </Button>
                   </Card>
                   <h1>Explore</h1>
                   <Row gutter={[16, 18]}>
                     {posts.map((post, index) => {
-                      const { id, content, imageHash, author, createdAt } = post;
+                      const {
+                        id,
+                        content,
+                        imageHash,
+                        author,
+                        createdAt
+                      } = post;
                       const createdAtTime = dayjs().to(dayjs.unix(createdAt));
                       return (
                         <Col key={id} xs={24} sm={12} md={8} lg={6}>
@@ -494,7 +518,9 @@ export default function App() {
                                   src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${author}`}
                                 />
                               }
-                              title={`${author?.slice(0, 10)}...${author?.slice(-6)}`}
+                              title={`${author?.slice(0, 10)}...${author?.slice(
+                                -6
+                              )}`}
                               description={createdAtTime}
                             />
                           </Card>
@@ -566,7 +592,7 @@ export default function App() {
                 </Drawer>
               </div>
             ) : (
-              <Button type="primary" onClick={handleConnectWallet}>
+              <Button style={{ marginLeft: "30%" }} type="primary" onClick={handleConnectWallet}>
                 Connect Wallet
               </Button>
             )}
@@ -576,7 +602,7 @@ export default function App() {
               <Chat
                 account={account} //user address
                 supportAddress="0xc2009D705d37A9341d6cD21439CF6B4780eaF2d7" //support address
-                apiKey="jVPMCRom1B.iDRMswdehJG7NpHDiECIHwYMMv6k2KzkPJscFIDyW8TtSnk4blYnGa8DIkfuacU0"
+                apiKey={process.env.REACT_APP_PUSH_CHAT_API_KEY}
                 env="staging"
               />
             )}
