@@ -49,7 +49,7 @@ const abi = [
   "function tip(uint256 _postId, uint256 _amount) payable",
   "function posts(uint256) view returns (uint256 id, string content, string imageHash, uint256 earnings, address author)"
 ];
-const contractAddress = "0x0002A073F11fA2af8298DCAA10355a73Ca55532E";
+const contractAddress = "0xB5bA319C406B7AB96143C7cF71236A1CA97C6328";
 
 const uploadImageToIpfs = async (image) => {
   const data = new FormData();
@@ -100,15 +100,15 @@ export default function App() {
       const provider = new providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const { chainId } = await provider.getNetwork();
-      // if (chainId !== 1) {
-      //   console.warn('Please connect to Ethereum Mainnet');
-      //   // switch to the polygon testnet
-      //   await window.ethereum
-      //     .request({
-      //       method: "wallet_switchEthereumChain",
-      //       params: [{ chainId: "0x1" }]
-      //     });
-      // }
+      if (chainId !== 5) {
+        message.info("Switching to goerli testnet");
+        // switch to the goerli testnet
+        await window.ethereum
+          .request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x5" }]
+          });
+      }
       console.log("chainId:", chainId);
       setProvider(provider);
       setChainId(chainId);
@@ -145,7 +145,7 @@ export default function App() {
     if (provider) {
       console.log("window.ethereum", window.ethereum);
       window.ethereum.on("accountsChanged", () => window.location.reload());
-      window.ethereum.on("chainChanged", () => window.location.reload());
+      window.ethereum.on("chainChanged", (chainId) => setChainId(parseInt(chainId)));
       window.ethereum.on("connect", (info) =>
         console.log("connected to network", info)
       );
@@ -308,7 +308,8 @@ export default function App() {
   };
 
   const createPost = async () => {
-    if (!postInput?.content) return;
+    if (!account || chainId !== 5) return message.error("Connect to goerli testnet");
+    if (!postInput?.content) return message.error("Content cannot be empty");
     setLoading(true);
     const { content, image } = postInput;
     try {
