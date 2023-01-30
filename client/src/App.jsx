@@ -100,15 +100,15 @@ export default function App() {
       const provider = new providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const { chainId } = await provider.getNetwork();
-      // if (chainId !== 1) {
-      //   console.warn('Please connect to Ethereum Mainnet');
-      //   // switch to the polygon testnet
-      //   await window.ethereum
-      //     .request({
-      //       method: "wallet_switchEthereumChain",
-      //       params: [{ chainId: "0x1" }]
-      //     });
-      // }
+      if (chainId !== 80001) {
+        message.info("Switching to mumbai testnet");
+        // switch to the goerli testnet
+        await window.ethereum
+          .request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x13881" }]
+          });
+      }
       console.log("chainId:", chainId);
       setProvider(provider);
       setChainId(chainId);
@@ -145,7 +145,7 @@ export default function App() {
     if (provider) {
       console.log("window.ethereum", window.ethereum);
       window.ethereum.on("accountsChanged", () => window.location.reload());
-      window.ethereum.on("chainChanged", () => window.location.reload());
+      window.ethereum.on("chainChanged", (chainId) => setChainId(parseInt(chainId)));
       window.ethereum.on("connect", (info) =>
         console.log("connected to network", info)
       );
@@ -308,7 +308,8 @@ export default function App() {
   };
 
   const createPost = async () => {
-    if (!postInput?.content) return;
+    if (!account || chainId !== 80001) return message.error("Connect to mumbai testnet");
+    if (!postInput?.content) return message.error("Content cannot be empty");
     setLoading(true);
     const { content, image } = postInput;
     try {
