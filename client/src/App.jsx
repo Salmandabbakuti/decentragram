@@ -49,7 +49,7 @@ const abi = [
   "function tip(uint256 _postId, uint256 _amount) payable",
   "function posts(uint256) view returns (uint256 id, string content, string imageHash, uint256 earnings, address author)"
 ];
-const contractAddress = "0x3401aE59dA159928F504DEC7F12745Da078D9890";
+const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 const uploadImageToIpfs = async (image) => {
   const data = new FormData();
