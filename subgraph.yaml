@@ -1,4 +1,4 @@
-specVersion: 0.0.4
+specVersion: 0.0.5
 description: Decentragram Subgraph by Salman
 features:
   - nonFatalErrors
@@ -7,11 +7,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: Decentragram
-    network: mumbai
+    network: goerli
     source:
       abi: Decentragram
-      address: "0x0002A073F11fA2af8298DCAA10355a73Ca55532E"
-      startBlock: 26944796
+      address: "0x3401aE59dA159928F504DEC7F12745Da078D9890"
+      startBlock: 8406919
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

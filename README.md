@@ -8,11 +8,8 @@ Create .env file with the following variables:
 
 ```
 PRIV_KEY=
-POLYGON_MUMBAI_RPC_URL=
-POLYGON_MAINNET_RPC_URL=
-ROPSTEN_RPC_URL=
-RINKEBY_RPC_URL=
-POLYGON_SCAN_API_KEY=
+TESTNET_RPC_URL=
+ETHERSCAN_API_KEY=
 ```
 
 1. Compile and deploy contract
@@ -25,14 +22,14 @@ POLYGON_SCAN_API_KEY=
 8. Authorize graph cli for deployment using token
 9. Deploy subgraph
 
-1. Compile and deploy contract
+10. Compile and deploy contract
 
 ```shell
-yarn install
+npm install
 npx hardhat compile
-npx hardhat deploy --network polygonMumbai
+npx hardhat deploy --network testnet
 # verify contract
-npx hardhat verify --network polygonMumbai <Deployed contract address> "<constructor1>" "<constructor2>"
+npx hardhat verify --network testnet <Deployed contract address> "<constructor1>" "<constructor2>"
 ```
 
 2. Create and Deploy subgraph

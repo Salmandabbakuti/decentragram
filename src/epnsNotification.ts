@@ -15,8 +15,8 @@ export function sendEPNSNotification(recipient: string, notification: string): v
   }
   epnsNotificationCounter.totalCount = (epnsNotificationCounter.totalCount).plus(BigInt.fromI32(1));
 
-  let count = epnsNotificationCounter.totalCount;
-  let id2 = `${subgraphID}_${count}`;
+  let count = epnsNotificationCounter.totalCount.toHexString();
+  let id2 = `${subgraphID}+${count}`;
   log.info('New id of EpnsPushNotification is: {}', [id2]);
   let epnsPushNotification = EpnsPushNotification.load(id2);
   if (epnsPushNotification == null) {

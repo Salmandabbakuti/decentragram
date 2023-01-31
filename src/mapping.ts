@@ -24,7 +24,7 @@ export function handlePostCreated(event: PostCreatedEvent): void {
     body = event.params.content,
     subject = "New Post on Decentragram",
     message = `A new post from ${event.params.author.toHexString()} on Decentragram`,
-    image = `https://ipfs.io/ipfs/${event.params.imageHash}`,
+    image = event.params.imageHash ? `https://ipfs.io/ipfs/${event.params.imageHash}` : "",
     secret = "null",
     cta = "https://play.google.com/store/apps/details?id=com.decentragram";
 

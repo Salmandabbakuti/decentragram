@@ -49,7 +49,7 @@ const abi = [
   "function tip(uint256 _postId, uint256 _amount) payable",
   "function posts(uint256) view returns (uint256 id, string content, string imageHash, uint256 earnings, address author)"
 ];
-const contractAddress = "0x0002A073F11fA2af8298DCAA10355a73Ca55532E";
+const contractAddress = "0x3401aE59dA159928F504DEC7F12745Da078D9890";
 
 const uploadImageToIpfs = async (image) => {
   const data = new FormData();
@@ -100,13 +100,13 @@ export default function App() {
       const provider = new providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const { chainId } = await provider.getNetwork();
-      if (chainId !== 80001) {
-        message.info("Switching to mumbai testnet");
+      if (chainId !== 5) {
+        message.info("Switching to goerli testnet");
         // switch to the goerli testnet
         await window.ethereum
           .request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: "0x13881" }]
+            params: [{ chainId: "0x5" }]
           });
       }
       console.log("chainId:", chainId);
@@ -308,7 +308,7 @@ export default function App() {
   };
 
   const createPost = async () => {
-    if (!account || chainId !== 80001) return message.error("Connect to mumbai testnet");
+    if (!account || chainId !== 5) return message.error("Connect to goerli testnet");
     if (!postInput?.content) return message.error("Content cannot be empty");
     setLoading(true);
     const { content, image } = postInput;
