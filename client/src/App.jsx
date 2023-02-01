@@ -366,15 +366,12 @@ export default function App() {
   };
 
   const DecentragramNotifications = () => {
+    const decentragramNotifications = notifications.filter(({ sender }) => sender === DECENTRAGRAM_CHANNEL_ADDRESS);
     return (
       <div>
         <h3>Decentragram</h3>
-        <Button type="primary" onClick={optInToChannel}>
-          Opt-in
-        </Button>
-        {notifications.length > 0 ? (
-          notifications
-            .filter(({ sender }) => sender === DECENTRAGRAM_CHANNEL_ADDRESS)
+        {decentragramNotifications.length > 0 ? (
+          decentragramNotifications
             .map((oneNotification, id) => {
               const {
                 payload: { data },
@@ -397,7 +394,12 @@ export default function App() {
               );
             })
         ) : (
-          <Empty description="No notifications. Opt-in to channel to receive notifications" />
+          <>
+            <Button type="primary" onClick={optInToChannel}>
+              Opt-in
+            </Button>
+            <Empty description="No notifications. Opt-in to channel to receive notifications" />
+          </>
         )}
       </div>
     );
