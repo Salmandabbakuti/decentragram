@@ -12,6 +12,13 @@ Decentragram is a short post sharing platform like instagram/twitter where you c
 - Blockchain Network: Goerli
 - Indexer: The Graph
 
+#### Features:
+
+- New Post Notifications using Push Protocol(Real-time)
+- Persisted Notifications using Push Protocol(Fetching from Push API)
+- Subgraph for indexing and notifications delivery
+- Customer Support Chat using Push Chat
+
 #### Workflow Architecture:
 
 ![Workflow Architecture](https://user-images.githubusercontent.com/29351207/215774230-f9ee0451-6b47-4889-aeac-a44eaf6e7403.png)
@@ -88,6 +95,6 @@ I do not give any warranties and will not be liable for any loss incurred throug
 
 ### Demo
 
-![Screenshot1](https://user-images.githubusercontent.com/29351207/215773493-08e62287-5211-4bef-9318-dc41fa34d55c.png)
+![Screenshot1](https://user-images.githubusercontent.com/29351207/216042938-f44d80a0-a935-45c7-a380-5a163d5a00a8.png)
 
 ![Screenshot2](https://user-images.githubusercontent.com/29351207/215773287-325e9121-c2f8-4ef0-9148-bc10c62bfa6f.png)
