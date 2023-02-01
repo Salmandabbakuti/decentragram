@@ -18,7 +18,8 @@ import {
   Input,
   Upload,
   Space,
-  message
+  message,
+  Empty
 } from "antd";
 import { useEffect, useState } from "react";
 import { providers, Contract } from "ethers";
@@ -103,11 +104,10 @@ export default function App() {
       if (chainId !== 5) {
         message.info("Switching to goerli testnet");
         // switch to the goerli testnet
-        await window.ethereum
-          .request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: "0x5" }]
-          });
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x5" }]
+        });
       }
       console.log("chainId:", chainId);
       setProvider(provider);
@@ -145,7 +145,9 @@ export default function App() {
     if (provider) {
       console.log("window.ethereum", window.ethereum);
       window.ethereum.on("accountsChanged", () => window.location.reload());
-      window.ethereum.on("chainChanged", (chainId) => setChainId(parseInt(chainId)));
+      window.ethereum.on("chainChanged", (chainId) =>
+        setChainId(parseInt(chainId))
+      );
       window.ethereum.on("connect", (info) =>
         console.log("connected to network", info)
       );
@@ -308,7 +310,8 @@ export default function App() {
   };
 
   const createPost = async () => {
-    if (!account || chainId !== 5) return message.error("Connect to goerli testnet");
+    if (!account || chainId !== 5)
+      return message.error("Connect to goerli testnet");
     if (!postInput?.content) return message.error("Content cannot be empty");
     setLoading(true);
     const { content, image } = postInput;
@@ -333,38 +336,8 @@ export default function App() {
     return (
       <div>
         <h3>Inbox</h3>
-        {notifications.map((oneNotification, id) => {
-          const {
-            payload: { data },
-            source
-          } = oneNotification;
-          const { app, icon, acta, asub, amsg, aimg, url } = data;
-          return (
-            <NotificationItem
-              key={id} // any unique id
-              notificationTitle={asub}
-              notificationBody={amsg}
-              cta={acta}
-              app={app}
-              icon={icon}
-              image={aimg}
-              url={url}
-              chainName={source}
-              isSpam={false}
-            />
-          );
-        })}
-      </div>
-    );
-  };
-
-  const DecentragramNotifications = () => {
-    return (
-      <div>
-        <h3>Decentragram</h3>
-        {notifications
-          .filter(({ sender }) => sender === DECENTRAGRAM_CHANNEL_ADDRESS)
-          .map((oneNotification, id) => {
+        {notifications.length > 0 ? (
+          notifications.map((oneNotification, id) => {
             const {
               payload: { data },
               source
@@ -384,7 +357,48 @@ export default function App() {
                 isSpam={false}
               />
             );
-          })}
+          })
+        ) : (
+          <Empty description="No notifications. Opt-in to channels to receive notifications" />
+        )}
+      </div>
+    );
+  };
+
+  const DecentragramNotifications = () => {
+    return (
+      <div>
+        <h3>Decentragram</h3>
+        <Button type="primary" onClick={optInToChannel}>
+          Opt-in
+        </Button>
+        {notifications.length > 0 ? (
+          notifications
+            .filter(({ sender }) => sender === DECENTRAGRAM_CHANNEL_ADDRESS)
+            .map((oneNotification, id) => {
+              const {
+                payload: { data },
+                source
+              } = oneNotification;
+              const { app, icon, acta, asub, amsg, aimg, url } = data;
+              return (
+                <NotificationItem
+                  key={id} // any unique id
+                  notificationTitle={asub}
+                  notificationBody={amsg}
+                  cta={acta}
+                  app={app}
+                  icon={icon}
+                  image={aimg}
+                  url={url}
+                  chainName={source}
+                  isSpam={false}
+                />
+              );
+            })
+        ) : (
+          <Empty description="No notifications. Opt-in to channel to receive notifications" />
+        )}
       </div>
     );
   };
@@ -560,20 +574,12 @@ export default function App() {
                   open={drawerVisible}
                 >
                   <h3>Push Socket</h3>
-                  <div>
-                    <p>
-                      Connection Status :{" "}
-                      {isSocketConnected ? "Connected" : "Disconnected"}
-                    </p>
-                    <Space>
-                      <Button type="primary" onClick={toggleConnection}>
-                        {isSocketConnected ? "Disconnect" : "Connect"}
-                      </Button>
-                      <Button type="primary" onClick={optInToChannel}>
-                        Opt-in
-                      </Button>
-                    </Space>
-                  </div>
+                  <p>
+                    Connection Status : {isSocketConnected ? "Connected" : "Disconnected"}
+                  </p>
+                  <Button type="primary" onClick={toggleConnection}>
+                    {isSocketConnected ? "Disconnect" : "Connect"}
+                  </Button>
                   <Tabs
                     animated
                     // onChange={getNotifications}
@@ -593,7 +599,11 @@ export default function App() {
                 </Drawer>
               </div>
             ) : (
-              <Button style={{ marginLeft: "30%" }} type="primary" onClick={handleConnectWallet}>
+              <Button
+                style={{ marginLeft: "30%" }}
+                type="primary"
+                onClick={handleConnectWallet}
+              >
                 Connect Wallet
               </Button>
             )}
