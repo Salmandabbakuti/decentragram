@@ -1,16 +1,10 @@
 # Decentragram
 
-Decentragram is a short post sharing platform like instagram/twitter where you can get latest tech trends, news, articles in straight in short form. it is integrated with notifications using push protocol and subgraph. in traditional web2 apps all the users may not be reported of new content(we saw that so often with youtube) or notifications may slip into spam somewhere or publishers need to send news letters to 1000 of users manually. with decentragram integration with push, whenver a new post is published, suscribers will get notification straight. it also integrated with push chat(for customer support).
+Welcome to Decentragram, a short post sharing platform like Instagram and Twitter. With Decentragram, you'll be able to stay up-to-date on the latest tech trends, news, and articles in a concise and easy-to-digest format.
 
-#### Tech Stack
+One of the key benefits of Decentragram is its integration with the push protocol and subgraph, ensuring that you never miss a beat. Unlike traditional web2 apps, where you may not always be notified of new content(we saw that often with youtube) or where notifications can end up in your spam folder, Decentragram makes sure you always know when a new post has been published. No more manual newsletters to sift through, and no more missed updates.
 
-- Frontend: React.js, Antd
-- Web3 Client: ethers.js
-- Smartcontracts: Solidity, Hardhat
-- Storage: IPFS, Pinata
-- Notifications: Push Protocol
-- Blockchain Network: Goerli
-- Indexer: The Graph
+In addition to its seamless notification system, Decentragram also comes with a built-in push chat for customer support. Whether you have a question, need assistance, or just want to say hello, dedicated support team will be there to help you out.
 
 #### Features:
 
@@ -22,6 +16,16 @@ Decentragram is a short post sharing platform like instagram/twitter where you c
 #### Workflow Architecture:
 
 ![Workflow Architecture](https://user-images.githubusercontent.com/29351207/215774230-f9ee0451-6b47-4889-aeac-a44eaf6e7403.png)
+
+#### Tech Stack
+
+- Frontend: React.js, Antd
+- Web3 Client: ethers.js
+- Smartcontracts: Solidity, Hardhat
+- Storage: IPFS, Pinata
+- Notifications: Push Protocol
+- Blockchain Network: Goerli
+- Indexer: The Graph
 
 ### Prerequisites
 
@@ -57,7 +61,8 @@ yarn hardhat deploy --network testnet
 
 #### Deploying Subgraph (Optional)
 
-> Note: Update the `subgraph.yaml` file with the contract address deployed in the previous step. Update deploy script with your own subgraph name.
+> Note: Update the `src/subgraph.yaml` file with the contract address deployed in the previous step. Update deploy script with your own subgraph name.
+> Note: Update `subgraphID` In `src/mapping.ts` file with your subgraph slug to deliver notifications to your channel.
 
 ```
 
@@ -87,6 +92,8 @@ yarn dev
 ````
 
 ### Demo
+
+https://user-images.githubusercontent.com/29351207/216329718-06120a96-5c89-45e1-add7-9111b1ebd43a.mp4
 
 ![Screenshot1](https://user-images.githubusercontent.com/29351207/216042938-f44d80a0-a935-45c7-a380-5a163d5a00a8.png)
 
