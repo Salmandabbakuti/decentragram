@@ -15,3 +15,15 @@ type Tip @entity {
   sender: Bytes! # address
   createdAt: BigInt! # timestamp
 }
+
+type EpnsNotificationCounter @entity {
+  id: ID!
+  totalCount: BigInt!
+}
+
+type EpnsPushNotification @entity {
+  id: ID!
+  notificationNumber: BigInt!
+  recipient: String!
+  notification: String!
+}

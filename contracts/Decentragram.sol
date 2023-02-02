@@ -34,11 +34,11 @@ contract Decentragram {
         address sender
     );
 
-    function createPost(string memory _content, string memory _imageHash)
-        public
-    {
+    function createPost(
+        string memory _content,
+        string memory _imageHash
+    ) public {
         require(bytes(_content).length > 0, "Content should not be empty");
-        require(bytes(_imageHash).length > 0, "Image hash should not be empty");
 
         uint256 postId = posts.length;
         posts.push(Post(postId, _content, _imageHash, 0, payable(msg.sender)));

@@ -3,6 +3,9 @@ import {
   TipCreated as TipCreatedEvent
 } from "../generated/Decentragram/Decentragram";
 import { Post, Tip } from "../generated/schema";
+import { sendEPNSNotification } from "./epnsNotification";
+
+export const subgraphID = "salmandabbakuti/decentragram";
 
 export function handlePostCreated(event: PostCreatedEvent): void {
   let post = new Post(event.params.id.toString());
@@ -12,6 +15,23 @@ export function handlePostCreated(event: PostCreatedEvent): void {
   post.author = event.params.author;
   post.createdAt = event.block.timestamp;
   post.save();
+
+  // Prepare push notification
+  // TODO: change to recipient address to channel address if type is 1
+  let recipient = "0xc2009D705d37A9341d6cD21439CF6B4780eaF2d7",
+    type = "1",
+    title = "New Post on Decentragram",
+    body = event.params.content,
+    subject = `${event.params.author} just posted on Decentragram`,
+    message = event.params.content,
+    image = event.params.imageHash == "" ? "" : `https://ipfs.io/ipfs/${event.params.imageHash}`,
+    secret = "null",
+    cta = "https://decentragram-sage.vercel.app/posts";
+
+  let notification = `{\"type\": \"${type}\", \"title\": \"${title}\", \"body\": \"${body}\", \"subject\": \"${subject}\", \"message\": \"${message}\", \"image\": \"${image}\", \"secret\": \"${secret}\", \"cta\": \"${cta}\"}`;
+
+  // Send push notification. it gets stored first and then polled by the push notification service
+  sendEPNSNotification(recipient, notification);
 }
 
 export function handleTipCreated(event: TipCreatedEvent): void {
