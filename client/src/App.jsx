@@ -59,7 +59,7 @@ const uploadImageToIpfs = async (image) => {
     headers: {
       // 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
       pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
-      pinata_secret_api_key: process.env.REACT_APP_PINATAe_SECRET_API_KEY
+      pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_API_KEY
     },
     body: data
   });
