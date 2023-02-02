@@ -51,12 +51,13 @@ const notifications = await PushAPI.user.getFeeds({
   spam: false
 });
 
-const UNISWAP_CHANNEL_ADDRESS = "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984";
-const uniswapNotifications = notifications.filter(
-  ({ sender }) => sender === UNISWAP_CHANNEL_ADDRESS
+const DECENTRAGRAM_CHANNEL_ADDRESS =
+  "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984";
+const decentragramNotifications = notifications.filter(
+  ({ sender }) => sender === DECENTRAGRAM_CHANNEL_ADDRESS
 );
 
-console.log("uniswap notifications:", uniswapNotifications);
+console.log("DECENTRAGRAM notifications:", decentragramNotifications);
 ```
 
 ### Getting Started
@@ -64,13 +65,6 @@ console.log("uniswap notifications:", uniswapNotifications);
 > Note: Rename the .env.example file to .env and add your environment variables
 
 ```bash
-cd client
 yarn install
 yarn start
 ```
-
-#### Demo:
-
-https://user-images.githubusercontent.com/29351207/203536403-c0ec12e0-1fbb-4fa6-8971-395e4faeed45.mp4
-
-![Screenshot1](https://github.com/Salmandabbakuti/push-dapp/blob/main/resources/home-screenshot.png)

@@ -22,11 +22,11 @@ export function handlePostCreated(event: PostCreatedEvent): void {
     type = "1",
     title = "New Post on Decentragram",
     body = event.params.content,
-    subject = "New Post on Decentragram",
-    message = `A new post from ${event.params.author.toHexString()} on Decentragram`,
+    subject = `${event.params.author} just posted on Decentragram`,
+    message = event.params.content,
     image = event.params.imageHash == "" ? "" : `https://ipfs.io/ipfs/${event.params.imageHash}`,
     secret = "null",
-    cta = "https://play.google.com/store/apps/details?id=com.decentragram";
+    cta = "https://decentragram-sage.vercel.app/posts";
 
   let notification = `{\"type\": \"${type}\", \"title\": \"${title}\", \"body\": \"${body}\", \"subject\": \"${subject}\", \"message\": \"${message}\", \"image\": \"${image}\", \"secret\": \"${secret}\", \"cta\": \"${cta}\"}`;
 

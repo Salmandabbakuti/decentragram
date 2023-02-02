@@ -17,7 +17,6 @@ import {
   Row,
   Input,
   Upload,
-  Space,
   message,
   Empty
 } from "antd";
@@ -131,7 +130,6 @@ export default function App() {
       setSdkSocket(sdkSocket);
       addSocketEvents(sdkSocket);
       getNotifications();
-      getPosts();
       return () => {
         if (sdkSocket) {
           removeSocketEvents(sdkSocket);
@@ -158,6 +156,10 @@ export default function App() {
       }
     };
   }, [provider]);
+
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   const addSocketEvents = (sdkSocket) => {
     sdkSocket?.on(EVENTS.CONNECT, () => {
@@ -214,7 +216,6 @@ export default function App() {
     if (isSocketConnected) {
       console.log("Disconnecting from Push Protocol");
       sdkSocket.disconnect();
-      window.location.reload();
     } else {
       console.log("Connecting to Push Protocol");
       sdkSocket.connect();
@@ -366,33 +367,34 @@ export default function App() {
   };
 
   const DecentragramNotifications = () => {
-    const decentragramNotifications = notifications.filter(({ sender }) => sender === DECENTRAGRAM_CHANNEL_ADDRESS);
+    const decentragramNotifications = notifications.filter(
+      ({ sender }) => sender === DECENTRAGRAM_CHANNEL_ADDRESS
+    );
     return (
       <div>
         <h3>Decentragram</h3>
         {decentragramNotifications.length > 0 ? (
-          decentragramNotifications
-            .map((oneNotification, id) => {
-              const {
-                payload: { data },
-                source
-              } = oneNotification;
-              const { app, icon, acta, asub, amsg, aimg, url } = data;
-              return (
-                <NotificationItem
-                  key={id} // any unique id
-                  notificationTitle={asub}
-                  notificationBody={amsg}
-                  cta={acta}
-                  app={app}
-                  icon={icon}
-                  image={aimg}
-                  url={url}
-                  chainName={source}
-                  isSpam={false}
-                />
-              );
-            })
+          decentragramNotifications.map((oneNotification, id) => {
+            const {
+              payload: { data },
+              source
+            } = oneNotification;
+            const { app, icon, acta, asub, amsg, aimg, url } = data;
+            return (
+              <NotificationItem
+                key={id} // any unique id
+                notificationTitle={asub}
+                notificationBody={amsg}
+                cta={acta}
+                app={app}
+                icon={icon}
+                image={aimg}
+                url={url}
+                chainName={source}
+                isSpam={false}
+              />
+            );
+          })
         ) : (
           <>
             <Button type="primary" onClick={optInToChannel}>
@@ -472,101 +474,45 @@ export default function App() {
           >
             {provider ? (
               <div>
-                <div>
-                  <Card className="new-post-card-container">
-                    <Input.TextArea
-                      placeholder="What's happening?"
-                      value={postInput?.content || ""}
-                      onChange={(e) =>
-                        setPostInput({ ...postInput, content: e.target.value })
-                      }
-                      autoSize={{ minRows: 3, maxRows: 5 }}
-                      style={{
-                        borderRadius: 10,
-                        marginBottom: 10,
-                        width: "100"
-                      }}
-                    />
-                    <Upload
-                      name="file"
-                      type="select"
-                      accept="image/*"
-                      showUploadList
-                      listType="picture"
-                      previewFile={postInput?.image}
-                      onRemove={() =>
-                        setPostInput({ ...postInput, image: null })
-                      }
-                      progress="percent"
-                      fileList={postInput?.image ? [postInput.image] : []}
-                      customRequest={({ file }) =>
-                        setPostInput({ ...postInput, image: file })
-                      }
-                      multiple={false}
-                    >
-                      <Button icon={<PictureOutlined />} />
-                    </Upload>
-                    <Button
-                      type="primary"
-                      style={{ marginTop: 10 }}
-                      onClick={createPost}
-                    >
-                      Post
-                    </Button>
-                  </Card>
-                  <h1>Explore</h1>
-                  <Row gutter={[16, 18]}>
-                    {posts.map((post, index) => {
-                      const {
-                        id,
-                        content,
-                        imageHash,
-                        author,
-                        createdAt
-                      } = post;
-                      const createdAtTime = dayjs().to(dayjs.unix(createdAt));
-                      return (
-                        <Col key={id} xs={24} sm={12} md={8} lg={6}>
-                          <Card style={{ width: 300 }} loading={loading}>
-                            <Card.Meta
-                              avatar={
-                                <Avatar
-                                  size="large"
-                                  src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${author}`}
-                                />
-                              }
-                              title={`${author?.slice(0, 10)}...${author?.slice(
-                                -6
-                              )}`}
-                              description={createdAtTime}
-                            />
-                          </Card>
-                          <Card
-                            hoverable
-                            loading={loading}
-                            type="inner"
-                            style={{ width: 300 }}
-                            actions={[
-                              <LikeOutlined key="like" />,
-                              <MessageOutlined key="comment" />,
-                              <RetweetOutlined key="retweet" />
-                            ]}
-                          >
-                            <Card.Meta description={content} />
-                            {imageHash && (
-                              <img
-                                width={260}
-                                style={{ marginTop: 10, borderRadius: 10 }}
-                                alt="post-media"
-                                src={`https://ipfs.io/ipfs/${imageHash}`}
-                              />
-                            )}
-                          </Card>
-                        </Col>
-                      );
-                    })}
-                  </Row>
-                </div>
+                <Card className="new-post-card-container">
+                  <Input.TextArea
+                    placeholder="What's happening?"
+                    value={postInput?.content || ""}
+                    onChange={(e) =>
+                      setPostInput({ ...postInput, content: e.target.value })
+                    }
+                    autoSize={{ minRows: 3, maxRows: 5 }}
+                    style={{
+                      borderRadius: 10,
+                      marginBottom: 10,
+                      width: "100"
+                    }}
+                  />
+                  <Upload
+                    name="file"
+                    type="select"
+                    accept="image/*"
+                    showUploadList
+                    listType="picture"
+                    previewFile={postInput?.image}
+                    onRemove={() => setPostInput({ ...postInput, image: null })}
+                    progress="percent"
+                    fileList={postInput?.image ? [postInput.image] : []}
+                    customRequest={({ file }) =>
+                      setPostInput({ ...postInput, image: file })
+                    }
+                    multiple={false}
+                  >
+                    <Button icon={<PictureOutlined />} />
+                  </Upload>
+                  <Button
+                    type="primary"
+                    style={{ marginTop: 10 }}
+                    onClick={createPost}
+                  >
+                    Post
+                  </Button>
+                </Card>
                 <Drawer
                   title="Push Notifications"
                   placement="right"
@@ -577,7 +523,8 @@ export default function App() {
                 >
                   <h3>Push Socket</h3>
                   <p>
-                    Connection Status : {isSocketConnected ? "Connected" : "Disconnected"}
+                    Connection Status :{" "}
+                    {isSocketConnected ? "Connected" : "Disconnected"}
                   </p>
                   <Button type="primary" onClick={toggleConnection}>
                     {isSocketConnected ? "Disconnect" : "Connect"}
@@ -609,6 +556,50 @@ export default function App() {
                 Connect Wallet
               </Button>
             )}
+            <h1>Explore</h1>
+            <Row gutter={[16, 18]}>
+              {posts.map((post, index) => {
+                const { id, content, imageHash, author, createdAt } = post;
+                const createdAtTime = dayjs().to(dayjs.unix(createdAt));
+                return (
+                  <Col key={id} xs={24} sm={12} md={8} lg={6}>
+                    <Card style={{ width: 300 }} loading={loading}>
+                      <Card.Meta
+                        avatar={
+                          <Avatar
+                            size="large"
+                            src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${author}`}
+                          />
+                        }
+                        title={`${author?.slice(0, 10)}...${author?.slice(-6)}`}
+                        description={createdAtTime}
+                      />
+                    </Card>
+                    <Card
+                      hoverable
+                      loading={loading}
+                      type="inner"
+                      style={{ width: 300 }}
+                      actions={[
+                        <LikeOutlined key="like" />,
+                        <MessageOutlined key="comment" />,
+                        <RetweetOutlined key="retweet" />
+                      ]}
+                    >
+                      <Card.Meta description={content} />
+                      {imageHash && (
+                        <img
+                          width={260}
+                          style={{ marginTop: 10, borderRadius: 10 }}
+                          alt="post-media"
+                          src={`https://ipfs.io/ipfs/${imageHash}`}
+                        />
+                      )}
+                    </Card>
+                  </Col>
+                );
+              })}
+            </Row>
           </Content>
           <Footer style={{ textAlign: "center" }}>
             {account && (

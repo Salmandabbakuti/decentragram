@@ -86,15 +86,15 @@ yarn install
 yarn dev
 ````
 
+### Demo
+
+![Screenshot1](https://user-images.githubusercontent.com/29351207/216042938-f44d80a0-a935-45c7-a380-5a163d5a00a8.png)
+
+![Screenshot2](https://user-images.githubusercontent.com/29351207/215773287-325e9121-c2f8-4ef0-9148-bc10c62bfa6f.png)
+
 ### Safety
 
 This is experimental software and is provided on an "as is" and "as available" basis.
 
 Decentragram is a proof of concept and is not ready for production use. It is not audited and has not been tested for security. Use at your own risk.
 I do not give any warranties and will not be liable for any loss incurred through any use of this codebase.
-
-### Demo
-
-![Screenshot1](https://user-images.githubusercontent.com/29351207/216042938-f44d80a0-a935-45c7-a380-5a163d5a00a8.png)
-
-![Screenshot2](https://user-images.githubusercontent.com/29351207/215773287-325e9121-c2f8-4ef0-9148-bc10c62bfa6f.png)
