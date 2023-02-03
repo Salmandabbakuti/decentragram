@@ -536,7 +536,7 @@ export default function App() {
                   </Button>
                   <Tabs
                     animated
-                    // onChange={getNotifications}
+                    onChange={getNotifications}
                     items={[
                       {
                         label: "Decentragram",
