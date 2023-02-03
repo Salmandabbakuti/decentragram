@@ -20,11 +20,11 @@ export function handlePostCreated(event: PostCreatedEvent): void {
   // TODO: change to recipient address to channel address if type is 1
   let recipient = "0xc2009D705d37A9341d6cD21439CF6B4780eaF2d7",
     type = "1",
-    title = "New Post on Decentragram",
-    body = event.params.content,
-    subject = `${event.params.author} just posted on Decentragram`,
-    message = event.params.content,
-    image = event.params.imageHash == "" ? "" : `https://ipfs.io/ipfs/${event.params.imageHash}`,
+    title = `${post.author.toHex()} just posted on Decentragram`,
+    body = post.content,
+    subject = `${post.author.toHex()} just posted on Decentragram`,
+    message = post.content,
+    image = post.imageHash == "" ? "" : `https://ipfs.io/ipfs/${post.imageHash}`,
     secret = "null",
     cta = "https://decentragram-sage.vercel.app/posts";
 

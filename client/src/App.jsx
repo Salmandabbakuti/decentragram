@@ -326,6 +326,11 @@ export default function App() {
       setLoading(false);
       setPostInput({});
       message.success("Post created successfully");
+      //  refresh posts after 15 seconds
+      setTimeout(() => {
+        message.info("Refreshing posts");
+        getPosts();
+      }, 15000);
     } catch (err) {
       setLoading(false);
       message.error("Failed to create post");
