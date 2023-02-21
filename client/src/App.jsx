@@ -568,23 +568,28 @@ export default function App() {
                 const createdAtTime = dayjs().to(dayjs.unix(createdAt));
                 return (
                   <Col key={id} xs={24} sm={12} md={8} lg={6}>
-                    <Card style={{ width: 300 }} loading={loading}>
-                      <Card.Meta
-                        avatar={
-                          <Avatar
-                            size="large"
-                            src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${author}`}
-                          />
-                        }
-                        title={`${author?.slice(0, 10)}...${author?.slice(-6)}`}
-                        description={createdAtTime}
-                      />
-                    </Card>
                     <Card
                       hoverable
+                      style={{
+                        cursor: "pointer",
+                        width: 300,
+                        marginTop: 14,
+                        borderRadius: 10,
+                        border: "1px solid #d9d9d9"
+                      }}
                       loading={loading}
-                      type="inner"
-                      style={{ width: 300 }}
+                      title={
+                        <Card.Meta
+                          avatar={
+                            <Avatar
+                              size="large"
+                              src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${author}`}
+                            />
+                          }
+                          title={`${author?.slice(0, 10)}...${author?.slice(-6)}`}
+                          description={createdAtTime}
+                        />
+                      }
                       actions={[
                         <LikeOutlined key="like" />,
                         <MessageOutlined key="comment" />,
